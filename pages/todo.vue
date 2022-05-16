@@ -1,5 +1,5 @@
 <template>
-  <v-container justify="center" align="center">
+  <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-row><v-btn to="/">back to list</v-btn></v-row>
       <v-row class="py-4"><h3>{{$route.query.name}}</h3></v-row>
@@ -119,21 +119,21 @@
         </v-dialog>
       </v-row>
       <v-row justify="center" v-for="task in tasks" :key="task.id" align="center">
-        <v-card class="py-4 flex-grow-1 justify-center" @click="completeTask(task.id)"
+        <v-card class="my-6 flex-grow-1" @click="completeTask(task.id)"
         >
           <v-card-text :class="{ completed: task.completed }"
             :style="[task.priority === 'High' ?
           {'color': 'red'} : task.priority === 'Medium' ? {'color': 'orange'} : {'color': 'yellow'}]">
-            <div>{{task.name}}</div>
-            <p>{{task.due_date}}</p>
-            <p>{{task.priority}}</p>
+            <div>{{task.priority}}</div>
+            <div class="text-h5">{{task.name}}</div>
+            <div>{{`due date: ${task.due_date.substr(0,10)}`}}</div>
           </v-card-text>
         </v-card>
         <v-btn v-if="!task.completed" @click.stop="()=>{clearDialog(); openEdit(task)}">edit</v-btn>
         <v-btn @click.stop="()=>{deleteTask(task.id)}">delete</v-btn>
       </v-row>
     </v-col>
-  </v-container>
+  </v-row>
 </template>
 
 <script lang="ts">

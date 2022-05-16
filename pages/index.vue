@@ -19,11 +19,11 @@
         <v-row v-for="(list, i) in lists" :key="i" align="center">
           <v-card
             :to="{ path: 'todo', query: { name: list }}"
-            class="py-4 flex-grow-1 justify-center"
+            class="flex-grow-1 justify-center"
             :class="{ completed: calculateCompleted(list, true) }">
             <v-card-text>
               <div>{{list}}</div>
-              <p>{{calculateCompleted(list)}}</p>
+              <div>{{calculateCompleted(list)}}</div>
             </v-card-text>
           </v-card>
           <v-btn @click="deleteList(list.name)">delete</v-btn>
