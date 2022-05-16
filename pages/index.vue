@@ -1,10 +1,14 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
-      <v-container fluid>
+      <v-container>
+        <h3>Suggested categories (fetched from API):</h3>
+        <div v-for="item in itemsArr" :key="item">{{item}}</div>
+      </v-container>
+      <v-container class="pb-8">
         <v-form v-model="valid">
           <v-text-field
-            label="new list"
+            label="Enter a new list name..."
             v-model="value"
             :rules="rules"
           ></v-text-field>
@@ -35,7 +39,7 @@ import { mapState } from 'vuex'
 import { RootState } from '~/store';
 
 export default Vue.extend({
-  name: 'landing-page',
+  name: 'todo-page',
   data: () => ({
     itemsArr: [] as string[],
     value: "" as string,

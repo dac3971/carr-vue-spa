@@ -109,6 +109,7 @@
               <v-btn
                 color="blue darken-1"
                 text
+                :disabled="!(this.dialog && this.priority && this.name)"
                 @click="()=>{edit ? submitUpdate() : addTask() }"
               >
                 Save
@@ -126,7 +127,6 @@
             <div>{{task.name}}</div>
             <p>{{task.due_date}}</p>
             <p>{{task.priority}}</p>
-            <p>{{task.list}}</p>
           </v-card-text>
         </v-card>
         <v-btn v-if="!task.completed" @click.stop="()=>{clearDialog(); openEdit(task)}">edit</v-btn>
@@ -142,7 +142,7 @@ import { mapState } from 'vuex'
 import { Task, RootState } from '~/store';
 
 export default Vue.extend({
-  name: 'Tasks',
+  name: 'task-list-page',
   data: ()=>({
     dialog: false,
     priority: "High",
@@ -211,7 +211,7 @@ export default Vue.extend({
   computed: {
     ...mapState({
       tasks: state => (state as RootState).tasks
-    })
-  },
+    }),
+  }
 })
 </script>
