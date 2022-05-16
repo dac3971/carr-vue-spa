@@ -47,7 +47,10 @@ export default Vue.extend({
   }),
   methods: {
     async submit (e: PointerEvent) {
-      if (this.lists.indexOf(this.value) > -1) alert('List name already used')
+      if (this.lists.indexOf(this.value) > -1) {
+        alert('List name already used')
+        return
+      }
       const form = (e.target as HTMLInputElement).form
       try {
         await this.$store.dispatch('addList', this.value)

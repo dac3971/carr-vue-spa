@@ -14,16 +14,16 @@ export class Task {
     id: number;
     name: string;
     list: string;
-    due_date: Date;
+    due_date: string;
     priority: string;
     completed: boolean;
  
-    constructor(name: string, list: string, due_date: string, priority: string) {
-        this.id = Date.now(),
+    constructor(name: string, list: string, due_date: string, priority: string, id = Date.now()) {
+        this.id = id,
         this.completed = false
         this.name = name,
         this.list = list,
-        this.due_date = new Date(due_date),
+        this.due_date = due_date,
         this.priority = priority
     }
 }
@@ -45,7 +45,7 @@ export const mutations: MutationTree<RootState> = {
         if (state.lists.indexOf(newVal) < 0) state.lists = [...state.lists, newVal]
     },
     ADD_TASK: (state, newVal: Task) => state.tasks = [ ...state.tasks, newVal ],
-    DELETE_TASK: (state, id: number) => state.tasks = state.tasks.filter(t => t.id === id),
+    DELETE_TASK: (state, id: number) => state.tasks = state.tasks.filter(t => t.id !== id),
     DELETE_LIST: (state, list_name: string) => state = {
         lists: state.lists.filter(e => e === list_name),
         tasks: state.tasks.filter(e => e.list === list_name)
