@@ -34,3 +34,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.completed {
+  text-decoration: line-through;
+}
+</style>

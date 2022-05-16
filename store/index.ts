@@ -41,7 +41,9 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-    ADD_LIST: (state, newVal: string) => state.lists = [...state.lists, newVal],
+    ADD_LIST: (state, newVal: string) => {
+        if (state.lists.indexOf(newVal) < 0) state.lists = [...state.lists, newVal]
+    },
     ADD_TASK: (state, newVal: Task) => state.tasks = [ ...state.tasks, newVal ],
     DELETE_TASK: (state, id: number) => state.tasks = state.tasks.filter(t => t.id === id),
     DELETE_LIST: (state, list_name: string) => state = {

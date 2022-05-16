@@ -180,9 +180,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style scoped>
-.completed {
-  text-decoration: line-through;
-}
-</style>

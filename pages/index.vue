@@ -15,10 +15,11 @@
         <v-row v-for="(list, i) in lists" :key="i" align="center">
           <v-card
             :to="{ path: 'todo', query: { name: list }}"
-            class="py-4 flex-grow-1 justify-center">
+            class="py-4 flex-grow-1 justify-center"
+            :class="{ completed: calculateCompleted(list, true) }">
             <v-card-text>
               <div>{{list}}</div>
-              <p>{{findCompleted(list)}}</p>
+              <p>{{calculateCompleted(list)}}</p>
             </v-card-text>
           </v-card>
           <v-btn @click="deleteList(list.name)">delete</v-btn>
@@ -46,6 +47,7 @@ export default Vue.extend({
   }),
   methods: {
     async submit (e: PointerEvent) {
+      if (this.lists.indexOf(this.value) > -1) alert('List name already used')
       const form = (e.target as HTMLInputElement).form
       try {
         await this.$store.dispatch('addList', this.value)
@@ -54,7 +56,7 @@ export default Vue.extend({
         console.error(error)
       }
     },
-    findCompleted (listName: string) {
+    calculateCompleted (listName: string, binary = false) {
       let total = 0
       const completed = this.tasks.filter(t=>{
         if (t.list === listName) {
@@ -63,7 +65,7 @@ export default Vue.extend({
         }
         else return false
       })
-      return `${completed.length}/${total}`
+      return binary ? completed.length === total && total > 0 : `${completed.length}/${total}`
     }
   },
   computed: {
